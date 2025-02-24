@@ -371,6 +371,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Click
       m_Flags: 0
+    - m_Name: 
+      m_Id: 652d72a3-f376-4c74-b4e7-f4dcae0adbb0
+      m_Path: <Touchscreen>/Press
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Click
+      m_Flags: 0
     m_Flags: 0
   dirToPass: 0
   id: 

@@ -27,20 +27,41 @@ public class InputSystem3DInteraction : MonoBehaviour
     }
     private void onClickCanceled(InputAction.CallbackContext context)
     {
+        Vector2 touchPosition = Vector2.zero;
+
+        if (Touchscreen.current != null)
+        {
+            touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+        else if (Mouse.current != null)
+        {
+            touchPosition = Mouse.current.position.ReadValue();
+        }
+
         if (isInteractable)
         {
-            mouseExitPos = Mouse.current.position.ReadValue();
+            mouseExitPos = touchPosition;
             ReadDirection(mouseEnterPos, mouseExitPos);
         }
     }
     private void onClickPerformed(InputAction.CallbackContext context)
     {
-        mouseEnterPos = Mouse.current.position.ReadValue();
+        Vector2 touchPosition = Vector2.zero;
+
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+        else if (Mouse.current != null)
+        {
+            touchPosition = Mouse.current.position.ReadValue();
+        }
+
+        mouseEnterPos = touchPosition;
         Ray ray = mainCamera.ScreenPointToRay(mouseEnterPos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-
             if (hit.collider.gameObject.GetComponent<IInteractable>() != null)
             {
                 id = hit.collider.gameObject.GetComponent<SliceRef>().id;
